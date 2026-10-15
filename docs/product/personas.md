@@ -36,7 +36,7 @@ training time — moves his sleep, so he can stop guessing.
 **What makes him trust a tool.** Seeing the rule that fired and the data behind it. He would
 rather read "deep sleep averaged 8.4% over 7 nights" than "your deep sleep is poor".
 
-**How he reaches SleepInsight.** Exports a CSV, runs the app locally, imports the night.
+**How he reaches Sheepcounter.** Exports a CSV, runs the app locally, imports the night.
 
 ---
 
@@ -64,7 +64,7 @@ she gets there.
 between "here is what was measured" and "here is what it might mean". A tool that told her
 she had a condition would make her trust it *less*, not more.
 
-**How she reaches SleepInsight today.** She does not, and that is a real finding: the MVP
+**How she reaches Sheepcounter today.** She does not, and that is a real finding: the MVP
 needs a CSV export and a local server. For her the product is the Beta companion app
 ([ROADMAP.md](../../ROADMAP.md)), and the MVP serves her only through her daughter.
 

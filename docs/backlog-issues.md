@@ -16,7 +16,7 @@ Labels used: `security`, `ml`, `data`, `frontend`, `testing`, `docs`, `infra`, `
 ### #1 Add authentication and per-user data
 `security` `alpha` · from critique #1, gap G-09
 
-SleepInsight stores health data and has no access control. Adding this later is not a
+Sheepcounter stores health data and has no access control. Adding this later is not a
 wrapper: both collections need an owner, and the unique indexes must become compound
 (`owner + night_date`) **before** there is data to migrate.
 

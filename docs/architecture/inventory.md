@@ -84,7 +84,7 @@ named render functions and no global mutable state apart from the currently sele
 
 ---
 
-## Data stored (MongoDB, database `sleepinsight`)
+## Data stored (MongoDB, database `sheepcounter`)
 
 **`nights`** — one document per night, unique on `night_date`:
 

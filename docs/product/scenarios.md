@@ -10,7 +10,7 @@ scenario shows the seams between features that a story list hides.
 It is 08:10. Dmitri slept badly and wants to know whether it was the two coffees after the
 seminar or just the deadline.
 
-He opens SleepInsight, which is already running locally. He exported last night from his
+He opens Sheepcounter, which is already running locally. He exported last night from his
 watch to `night-2026-03-02.csv` and presses **Import CSV**. The file is accepted; a line
 appears saying the night was imported, with a warning that 4 heart-rate values were outside
 the plausible range and have been interpolated.

@@ -11,7 +11,7 @@ from datetime import date
 from pathlib import Path
 
 os.environ["USE_MOCK_DB"] = "1"
-os.environ["MODEL_DIR"] = tempfile.mkdtemp(prefix="sleepinsight_model_")
+os.environ["MODEL_DIR"] = tempfile.mkdtemp(prefix="sheepcounter_model_")
 os.environ["TRAIN_NIGHTS"] = "25"
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -27,7 +27,7 @@ from app.services.synthetic import generate_nights  # noqa: E402
 @pytest.fixture
 def db():
     """A fresh empty fake database for every test."""
-    database = mongomock.MongoClient()["sleepinsight_test"]
+    database = mongomock.MongoClient()["sheepcounter_test"]
     ensure_indexes(database)
     return database
 

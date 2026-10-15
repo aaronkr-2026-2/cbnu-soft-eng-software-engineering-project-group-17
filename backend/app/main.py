@@ -12,7 +12,7 @@ from .db import ensure_indexes, get_client
 from .routers import analytics, context, demo, nights
 from .services import staging
 
-log = logging.getLogger("sleepinsight")
+log = logging.getLogger("sheepcounter")
 
 
 @asynccontextmanager
@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="SleepInsight",
+    title="Sheepcounter",
     description="Sleep analysis prototype: import or generate nights, detect sleep stages, get insights and a smart alarm. "
     "Not a medical device.",
     version="0.1.0",

@@ -1,6 +1,6 @@
 # AI_LOG.md
 
-AI collaboration log for the SleepInsight semester project (Advanced Software Engineering,
+AI collaboration log for the Sheepcounter semester project (Advanced Software Engineering,
 8866357-02). Template from the course project guide; one entry per milestone.
 
 > **Honesty note.** This project is built with heavy AI assistance, and the entries below say

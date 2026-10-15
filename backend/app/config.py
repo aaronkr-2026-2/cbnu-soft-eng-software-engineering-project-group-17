@@ -8,7 +8,7 @@ from pathlib import Path
 
 # --- Database -------------------------------------------------------------
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-DB_NAME = os.environ.get("DB_NAME", "sleepinsight")
+DB_NAME = os.environ.get("DB_NAME", "sheepcounter")
 # USE_MOCK_DB=1 runs the app against an in-memory fake MongoDB (mongomock).
 # Handy for a quick demo or for tests; data is lost when the process stops.
 USE_MOCK_DB = os.environ.get("USE_MOCK_DB", "0") == "1"

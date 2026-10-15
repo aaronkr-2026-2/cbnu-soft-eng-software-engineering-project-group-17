@@ -1,6 +1,6 @@
 """Parse and validate an uploaded sleep CSV file.
 
-Input format ("SleepInsight CSV", one row per measurement):
+Input format ("Sheepcounter CSV", one row per measurement):
 
     timestamp,heart_rate,hrv_rmssd,spo2,movement,resp_rate
     2026-10-14T23:05:00,62.0,48.1,96.5,3.2,14.8

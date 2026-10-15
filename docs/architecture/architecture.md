@@ -1,6 +1,6 @@
 # Architecture
 
-SleepInsight is a layered monolith: one FastAPI process that serves both the JSON API and the
+Sheepcounter is a layered monolith: one FastAPI process that serves both the JSON API and the
 static web interface, with MongoDB behind it. The layering is the only structural rule, and
 it is enforced by a convention that is easy to check: **routers do HTTP, services do logic,
 `repository.py` does the database, and nothing skips a layer.**

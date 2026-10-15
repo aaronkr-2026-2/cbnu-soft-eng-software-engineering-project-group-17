@@ -4,7 +4,7 @@ A sleep-analysis prototype: import a night of wearable data (or generate a reali
 get your sleep stages, the metrics behind them, explainable insights, a next-day energy
 forecast and a smart-alarm simulation.
 
-> **Not a medical device.** SleepInsight produces general wellness information. It cannot
+> **Not a medical device.** Sheepcounter produces general wellness information. It cannot
 > diagnose, treat or rule out any condition, including sleep apnoea. Talk to a doctor about
 > health concerns.
 
@@ -17,7 +17,7 @@ Semester project, solo — Charlie (student ID 2026232029), repository group-17.
 
 **FOR** people who already own a sleep-tracking wearable
 **WHO** get a single "sleep score" every morning and no idea what to do with it,
-**THE** SleepInsight platform **IS A** personal sleep-analysis web application
+**THE** Sheepcounter platform **IS A** personal sleep-analysis web application
 **THAT** turns a night of raw biometric data into sleep stages, explainable patterns
 ("your score is lower on days with alcohol"), a next-day energy forecast and a smart alarm.
 **UNLIKE** the closed apps shipped with wearables, which show a number and keep the reasoning,

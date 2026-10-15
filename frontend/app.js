@@ -1,6 +1,6 @@
 "use strict";
 
-/* SleepInsight web interface.
+/* Sheepcounter web interface.
  * Plain JavaScript, no build step. All text that comes from the server is
  * inserted with textContent / append(string) (never innerHTML), so data from
  * an imported file can never run as code in the page.

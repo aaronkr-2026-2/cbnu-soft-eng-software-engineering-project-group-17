@@ -15,7 +15,7 @@ def test_health(client):
 def test_frontend_is_served_at_the_root(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert "SleepInsight" in response.text
+    assert "Sheepcounter" in response.text
 
 
 # ----- import ------------------------------------------------------------------------
