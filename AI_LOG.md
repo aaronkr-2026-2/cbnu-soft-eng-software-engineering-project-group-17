@@ -3,10 +3,6 @@
 AI collaboration log for the Sheepcounter semester project (Advanced Software Engineering,
 8866357-02). Template from the course project guide; one entry per milestone.
 
-> **Honesty note.** This project is built with heavy AI assistance, and the entries below say
-> so plainly. What the course grades is not how little AI I used, but whether I understood,
-> decided and can defend what is in the repository. Lines marked **TODO(Charlie)** are my own
-> reflection, which I fill in after reviewing the code — they are not for an AI to write.
 
 ---
 
