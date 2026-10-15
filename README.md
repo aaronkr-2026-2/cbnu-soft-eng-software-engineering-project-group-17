@@ -1,4 +1,4 @@
-# SleepInsight
+# Sheepcounter
 
 A sleep-analysis prototype: import a night of wearable data (or generate a realistic one),
 get your sleep stages, the metrics behind them, explainable insights, a next-day energy
