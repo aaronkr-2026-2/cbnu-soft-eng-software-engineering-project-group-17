@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SleepInsight</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>SleepInsight</h1>
+      <p class="muted">Sleep analysis prototype &middot; not a medical device</p>
+    </div>
+    <div class="toolbar">
+      <button id="btn-demo" type="button">Load demo data</button>
+      <label class="button secondary" for="file-import">Import CSV</label>
+      <input id="file-import" type="file" accept=".csv,text/csv" hidden>
+      <button id="btn-clear" type="button" class="secondary">Remove demo data</button>
+    </div>
+  </header>
+
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <main>
+    <section id="empty" class="card" hidden>
+      <h2>No sleep data yet</h2>
+      <p>Load generated demo nights to explore the app, or import a CSV file with one night of heart rate
+        (and optionally HRV, SpO2, movement and breathing rate). See the README for the file format.</p>
+      <p class="muted">Demo data is simulated: any pattern you see in it was built into the generator.</p>
+    </section>
+
+    <div id="dashboard" hidden>
+      <section class="grid two">
+        <article class="card">
+          <h2>Tomorrow's energy forecast</h2>
+          <div id="forecast"></div>
+        </article>
+        <article class="card">
+          <h2>Sleep score by night</h2>
+          <div class="chart-box short"><canvas id="chart-trend" aria-label="Sleep score and sleep duration per night"></canvas></div>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="row between">
+          <h2>Night detail</h2>
+          <label>Night
+            <select id="night-select"></select>
+          </label>
+        </div>
+        <div id="tiles" class="tiles"></div>
+        <p id="method-note" class="muted small"></p>
+        <h3>Sleep stages</h3>
+        <div class="chart-box"><canvas id="chart-hypno" aria-label="Sleep stages through the night"></canvas></div>
+        <h3>Heart rate and blood oxygen</h3>
+        <div class="chart-box"><canvas id="chart-vitals" aria-label="Heart rate and SpO2 through the night"></canvas></div>
+        <h3>How the score is built</h3>
+        <div id="breakdown" class="breakdown"></div>
+      </section>
+
+      <section class="card">
+        <h2>Smart alarm</h2>
+        <p class="muted">Replays this night: picks the first moment of light sleep inside your wake-up window.</p>
+        <form id="alarm-form" class="row wrap">
+          <label>Window starts <input id="alarm-start" type="datetime-local" required></label>
+          <label>Window ends <input id="alarm-end" type="datetime-local" required></label>
+          <button type="submit">Simulate</button>
+        </form>
+        <div id="alarm-result" class="result"></div>
+      </section>
+
+      <section class="grid two">
+        <article class="card">
+          <h2>Insights</h2>
+          <div id="correlations"></div>
+          <p id="disclaimer" class="muted small"></p>
+        </article>
+        <article class="card">
+          <h2>Recommendations</h2>
+          <div id="recommendations"></div>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Daily context</h2>
+        <p class="muted">What happened during the day before the night. The more days you add, the more patterns the insights can find.</p>
+        <form id="context-form" class="row wrap">
+          <label>Day <input id="ctx-date" type="date" required></label>
+          <label>Steps <input id="ctx-steps" type="number" min="0" max="100000" step="100"></label>
+          <label>Caffeine after 14:00 (drinks) <input id="ctx-caffeine" type="number" min="0" max="20" step="1"></label>
+          <label>Alcohol (units) <input id="ctx-alcohol" type="number" min="0" max="30" step="1"></label>
+          <label>Stress
+            <select id="ctx-stress">
+              <option value="">-</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+          </label>
+          <label class="check"><input id="ctx-workout" type="checkbox"> Hard workout within 3 h of bed</label>
+          <button type="submit">Save</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p class="small">SleepInsight is a student prototype for general wellness information. It is not a medical device and
+      cannot diagnose or treat any condition. Talk to a doctor about health concerns.</p>
+    <details id="model-details">
+      <summary class="small">About the sleep-stage model</summary>
+      <pre id="model-info" class="small"></pre>
+    </details>
+  </footer>
+
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
