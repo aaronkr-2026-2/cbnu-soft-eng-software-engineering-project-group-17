@@ -59,23 +59,3 @@ Caught during the AI's own review/testing (all fixed, all in the code now):
 5. The web interface built the default alarm window with buggy date arithmetic, and the
    hypnogram lost its "Awake"/"Deep" axis labels because Chart.js placed ticks at non-integer
    values.
-
-**TODO(Charlie):** add here what *I* caught when I read the code myself — at minimum one
-place where I disagreed with how something is written, and one number (a threshold or a
-weight) I checked against a source rather than trusting. This line stays until I write it.
-
-**TODO(Charlie):** record the build log the course asks for — what I ran, what broke on my
-machine, and how long the first `docker compose up --build` took.
-
----
-
-## Template for the next entries
-
-```
-## [Milestone name] — [Date]
-**Tool(s) used:**
-**What I asked for:**
-**What I kept as-is:**
-**What I changed or rejected, and why:**
-**Something the AI got wrong that I had to catch:**
-```
