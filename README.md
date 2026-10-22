@@ -9,7 +9,7 @@ forecast and a smart-alarm simulation.
 > health concerns.
 
 Course: Advanced Software Engineering (8866357-02), Chungbuk National University.
-Semester project, solo — Charlie (student ID 2026232029), repository group-17.
+Semester project, repository group-17.
 
 ---
 
