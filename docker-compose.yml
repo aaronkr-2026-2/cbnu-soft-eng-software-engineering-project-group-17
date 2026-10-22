@@ -1,0 +1,28 @@
+# Start everything with:  docker compose up --build
+# Then open http://localhost:8000
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      DB_NAME: sheepcounter
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
