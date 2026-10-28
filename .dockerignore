@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+backend/app/model_store/
+.git/
+.env
+docs/
+*.md
