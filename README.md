@@ -8,10 +8,10 @@ forecast and a smart-alarm simulation.
 > diagnose, treat or rule out any condition, including sleep apnoea. Talk to a doctor about
 > health concerns.
 
-**[Live Demo](https://cbnu-soft-eng-software-engineering-puhw.onrender.com/)**
-
 Course: Advanced Software Engineering (8866357-02), Chungbuk National University.
 Semester project, repository group-17.
+
+**[Live Demo](https://cbnu-soft-eng-software-engineering-puhw.onrender.com/)**
 
 ---
 
