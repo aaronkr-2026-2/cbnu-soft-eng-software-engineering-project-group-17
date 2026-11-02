@@ -59,3 +59,57 @@ Caught during the AI's own review/testing (all fixed, all in the code now):
 5. The web interface built the default alarm window with buggy date arithmetic, and the
    hypnogram lost its "Awake"/"Deep" axis labels because Chart.js placed ticks at non-integer
    values.
+
+---
+
+## Milestone 2: deployment on Render — 2026-11-02
+
+**Tool(s) used:** Claude (claude.ai), reading the Render deploy log, the Dockerfile and the
+app's configuration (`backend/app/config.py`, `backend/app/main.py`).
+
+**What I asked for:** help putting the site online: the app on Render, built from the existing
+Dockerfile, and the database on a free MongoDB Atlas cluster. The first deploy failed and I did
+not know why, so I gave Claude the Render log and asked it to find the cause.
+
+**What I kept as-is:** Claude's diagnosis. The build itself was fine (dependencies installed,
+the model trained, the image was built). The app crashed on startup with
+`pymongo.errors.OperationFailure: bad auth : Authentication failed` while creating indexes
+(`ensure_indexes`), because Atlas rejected the username and password in `MONGO_URL`. Render's
+"No open ports detected" was a consequence of that crash, not a separate problem, so I left
+`PORT=8000` and the Dockerfile alone. I also kept the deploy settings: Docker, Singapore region,
+Free instance, health check on `/api/health`.
+
+**What I changed or rejected, and why:**
+- The fix was configuration only, no file in this repository changed. I set a new password for
+  the Atlas database user `Sheepcounter_app` and put the corrected connection string into
+  `MONGO_URL` in Render's Environment Variables. The password lives only in Render, not in git.
+- Moved the Render service from my personal `sheepcounter` repository to this course
+  repository (group-17), so the live site is built from the same code the teacher reviews.
+- Result: the site is live at https://cbnu-soft-eng-software-engineering-puhw.onrender.com/.
+
+**Something the AI got wrong that I had to catch:** Claude's example connection string used
+`sheepcounter_app` in lowercase, but my Atlas user is `Sheepcounter_app`. MongoDB usernames are
+case-sensitive, so copying the example as written produces exactly this `bad auth` error. Claude
+pointed out the mismatch itself when I asked which user's password to reset.
+
+---
+
+## Milestone 3: README and AI log update — 2026-11-02
+
+**Tool(s) used:** Claude (claude.ai, Opus 5.5), reading this repository's git history.
+
+**What I asked for:** a "Live Demo" link at the top of the README and the Milestone 2 entry in
+this log. I asked Claude to take the cause of the failed deploy from the git history only, and
+to stop and ask me if the history did not show it unambiguously.
+
+**What I kept as-is:** the placement of the Live Demo link right after the project description,
+and the content of the Milestone 2 entry.
+
+**What I changed or rejected, and why:** I did not let Claude edit the repository. It gave me
+the text and I made the changes in both files myself, so every change in my working copy is one
+I made and can explain.
+
+**Something the AI got wrong that I had to catch:** nothing in this step. Worth recording:
+Claude checked `git log` and found no commit that fixed the deploy (the deploy files were last
+changed on 2026-10-15, before the deploy), so it stopped and asked instead of inventing a code
+fix. That is why Milestone 2 is based on the deployment conversation, not on a commit.
