@@ -4,11 +4,11 @@ A sleep-analysis prototype: import a night of wearable data (or generate a reali
 get your sleep stages, the metrics behind them, explainable insights, a next-day energy
 forecast and a smart-alarm simulation.
 
-**[Live Demo](https://cbnu-soft-eng-software-engineering-puhw.onrender.com/)**
-
 > **Not a medical device.** Sheepcounter produces general wellness information. It cannot
 > diagnose, treat or rule out any condition, including sleep apnoea. Talk to a doctor about
 > health concerns.
+
+**[Live Demo](https://cbnu-soft-eng-software-engineering-puhw.onrender.com/)**
 
 Course: Advanced Software Engineering (8866357-02), Chungbuk National University.
 Semester project, repository group-17.
