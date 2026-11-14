@@ -15,6 +15,9 @@ const charts = {};    // Chart.js instances by canvas id
 
 const $ = (id) => document.getElementById(id);
 
+/** Read a design token (a CSS variable on :root), e.g. token("--primary"). */
+const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
 // ---------- small helpers ----------------------------------------------------
 
 /** Create an element: h("p", {class: "muted"}, "text", childNode) */
@@ -91,8 +94,10 @@ async function loadAll(selectId = null) {
   $("dashboard").hidden = !hasData;
   if (!hasData) { setStatus(""); return; }
 
-  Chart.defaults.color = getComputedStyle(document.body).color;
-  Chart.defaults.borderColor = getComputedStyle(document.body).getPropertyValue("--line");
+  await document.fonts.ready;
+  Chart.defaults.color = token("--muted");
+  Chart.defaults.borderColor = token("--line");
+  Chart.defaults.font.family = token("--font-body");
 
   renderTrend();
   const select = clear($("night-select"));
@@ -123,8 +128,8 @@ function renderTrend() {
     data: {
       labels: nights.map((n) => n.night_date.slice(5)),
       datasets: [
-        { type: "bar", label: "Sleep score", data: nights.map((n) => n.summary.score), backgroundColor: "#748ffc", yAxisID: "y" },
-        { type: "line", label: "Sleep (h)", data: nights.map((n) => +(n.summary.total_sleep_min / 60).toFixed(1)), borderColor: "#f08c00", pointRadius: 2, yAxisID: "y1" },
+        { type: "bar", label: "Sleep score", data: nights.map((n) => n.summary.score), backgroundColor: token("--primary"), borderRadius: 4, yAxisID: "y" },
+        { type: "line", label: "Sleep (h)", data: nights.map((n) => +(n.summary.total_sleep_min / 60).toFixed(1)), borderColor: token("--secondary"), pointRadius: 2, yAxisID: "y1" },
       ],
     },
     options: {
@@ -197,11 +202,13 @@ function renderSummary(night) {
 
 function renderHypnogram(night) {
   const labels = night.epochs.map((e) => timeOf(e.t));
+  const stageColors = [token("--stage-deep"), token("--stage-light"), token("--stage-rem"), token("--stage-wake")];
   drawChart("chart-hypno", {
     type: "line",
     data: {
       labels,
-      datasets: [{ label: "Stage", data: night.epochs.map((e) => STAGE_LEVEL[e.stage]), stepped: true, borderColor: "#748ffc", borderWidth: 2, pointRadius: 0, fill: false }],
+      datasets: [{ label: "Stage", data: night.epochs.map((e) => STAGE_LEVEL[e.stage]), stepped: true, borderColor: token("--accent"), borderWidth: 3, pointRadius: 0, fill: false,
+        segment: { borderColor: (ctx) => stageColors[ctx.p0.parsed.y] } }],
     },
     options: {
       maintainAspectRatio: false,
@@ -223,10 +230,10 @@ function renderHypnogram(night) {
 
 function renderVitals(night) {
   const labels = night.epochs.map((e) => timeOf(e.t));
-  const datasets = [{ label: "Heart rate (bpm)", data: night.epochs.map((e) => e.hr), borderColor: "#fa5252", pointRadius: 0, borderWidth: 1.5, yAxisID: "y" }];
+  const datasets = [{ label: "Heart rate (bpm)", data: night.epochs.map((e) => e.hr), borderColor: token("--hr"), pointRadius: 0, borderWidth: 1.5, yAxisID: "y" }];
   const scales = { y: { title: { display: true, text: "bpm" } }, x: { ticks: { maxTicksLimit: 10 } } };
   if (night.epochs.some((e) => e.spo2 !== undefined && e.spo2 !== null)) {
-    datasets.push({ label: "SpO2 (%)", data: night.epochs.map((e) => e.spo2 ?? null), borderColor: "#339af0", pointRadius: 0, borderWidth: 1.5, yAxisID: "y1" });
+    datasets.push({ label: "SpO2 (%)", data: night.epochs.map((e) => e.spo2 ?? null), borderColor: token("--spo2"), pointRadius: 0, borderWidth: 1.5, yAxisID: "y1" });
     scales.y1 = { position: "right", min: 82, max: 100, grid: { drawOnChartArea: false }, title: { display: true, text: "%" } };
   }
   drawChart("chart-vitals", { type: "line", data: { labels, datasets }, options: { maintainAspectRatio: false, animation: false, scales } });
@@ -245,7 +252,7 @@ function markAlarmOnChart(result) {
     };
   };
   chart.data.datasets = chart.data.datasets.slice(0, 1);
-  chart.data.datasets.push(point(result.smart_alarm.time, "#2f9e44", "Smart alarm"), point(result.fixed_alarm.time, "#e8590c", "Fixed alarm"));
+  chart.data.datasets.push(point(result.smart_alarm.time, token("--tertiary"), "Smart alarm"), point(result.fixed_alarm.time, token("--warn"), "Fixed alarm"));
   chart.options.plugins.legend.display = true;
   chart.update();
 }
@@ -341,5 +348,31 @@ $("model-details").addEventListener("toggle", async (e) => {
   try { $("model-info").textContent = JSON.stringify(await request("/api/model-info"), null, 2); }
   catch (error) { $("model-info").textContent = error.message; }
 });
+
+// ---------- navigation: highlight the section on screen ----------------------------
+
+const navLinks = [...document.querySelectorAll(".nav a")];
+let pauseUntil = 0;  // while a menu click scrolls the page, scroll events are ignored
+
+function setActive(current) {
+  navLinks.forEach((link) => link.classList.toggle("active", link === current));
+}
+
+function highlightNav() {
+  if (Date.now() < pauseUntil) return;
+  let current = navLinks[0];
+  navLinks.forEach((link) => {
+    if (document.querySelector(link.hash).getBoundingClientRect().top < 120) current = link;
+  });
+  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  if (atBottom) current = navLinks[navLinks.length - 1];
+  setActive(current);
+}
+
+navLinks.forEach((link) => link.addEventListener("click", () => {
+  pauseUntil = Date.now() + 1000;
+  setActive(link);
+}));
+window.addEventListener("scroll", highlightNav, { passive: true });
 
 run(null, "Loading...", loadAll);
